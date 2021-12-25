@@ -1,10 +1,12 @@
 package Stormtrooper;
 import java.awt.*;
 
-public class RocketsBoombs {
-    private CountRocketsBoombs NumbWeapon;
-    private static int planeHeight;
-
+public class RocketsBoombs implements IWeapon{
+    protected CountRocketsBoombs NumbWeapon;
+    protected static int planeHeight;
+    public RocketsBoombs(int planeHeight){
+        this.planeHeight = planeHeight;
+    }
     public void setNumbWeapon(int NumbWeapon){
         this.NumbWeapon = CountRocketsBoombs.values()[NumbWeapon];
     }
@@ -17,9 +19,5 @@ public class RocketsBoombs {
             g2d.fillOval(startX+27, startY + 60+ i * planeHeight / 15, 5, 5);
             g2d.fillOval(startX+10, startY + 80 + i * planeHeight / 15, 50, 5);
         }
-    }
-
-    public void Init(int planeHeight){
-        this.planeHeight = planeHeight;
     }
 }

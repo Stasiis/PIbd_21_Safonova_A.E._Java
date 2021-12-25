@@ -5,8 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 public class Form extends JPanel{
-    private Plane plane;
-    JButton ButtonCreate = new JButton("Создать штурмовик");
+    private ITransport plane;
+    JButton ButtonCreatePlane = new JButton("Создать самолет");
+    JButton ButtonCreateStormTrooper = new JButton("Создать штурмовик");
     JButton ButtonDown = new JButton(new ImageIcon("src/com/down.png"));
     JButton ButtonUp = new JButton(new ImageIcon("src/com/up.png"));
     JButton ButtonLeft = new JButton(new ImageIcon("src/com/left.png"));
@@ -52,20 +53,29 @@ public class Form extends JPanel{
         ButtonUp.setActionCommand("Up");
         ButtonLeft.setActionCommand("Left");
         ButtonRight.setActionCommand("Right");
-
-        addButton(ButtonCreate, 8, 8, 150, 30);
+        
+        addButton(btnCreatePlane, 8, 8, 150, 30);
+        addButton(btnCreateStormTrooper, 160, 8, 150, 30);
         addButton(ButtonUp, 900, 460, 30, 30);
         addButton(ButtonDown, 900, 500, 30, 30);
         addButton(ButtonLeft, 860, 500, 30, 30);
         addButton(ButtonRight, 940, 500, 30, 30);
 
-        ButtonCreate.addActionListener(new ActionListener() {
+       btnCreatePlane.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Random rand = new Random();
-                plane = new Plane();
-                plane.Init(rand.nextInt(100) + 300, rand.nextInt(1000) + 2000, Color.BLACK, Color.red, true, true);
+                plane = new Plane(rand.nextInt(100) + 300, rand.nextInt(1000) + 2000, Color.BLACK);
                 plane.SetPosition(rand.nextInt(10) + 100, rand.nextInt(50) + 100, getWidth(), getHeight());
+                drawAll();
+            }
+        });
+        btnCreateStormTrooper.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Random rand = new Random();
+                plane = new Stormtrooper(rand.nextInt(100)+300, rand.nextInt(1000)+2000, Color.BLACK, Color.red, true, true);
+                plane.SetPosition(rand.nextInt(50)+100, rand.nextInt(50)+100, getWidth(), getHeight());
                 drawAll();
             }
         });
