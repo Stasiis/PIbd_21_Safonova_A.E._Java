@@ -2,79 +2,23 @@ package Stormtrooper;
 import java.awt.*;
 import java.util.Random;
 
-public class Plane {
-    private int startX;
-    private int startY;
-    private int pictureWidth;
-    private int pictureHeight;
-    private static final int planeWidth = 85;
-    private static final int planeHeight = 110;
-    public int MaxSpeed;
-    public float Weight;
-    public Color MainColor;
-    public Color DopColor;
-    public Boolean Rockets;
-    public Boolean Boombs;
-    private RocketsBoombs weapon;
+public class Plane extends Vehicle{
+    protected  static int planeWidth = 85;
+    protected  static int planeHeight = 110;
 
-    private void setMaxSpeed(int MaxSpeed){
-        this.MaxSpeed = MaxSpeed;
-    }
-    public int getMaxSpeed(){
-        return MaxSpeed;
-    }
-    private void setWeight(float Weight){
-        this.Weight = Weight;
-    }
-    public float getWeight(){
-        return Weight;
-    }
-    private void setMainColor(Color MainColor){
-        this.MainColor = MainColor;
-    }
-    public Color getMainColor(){
-        return MainColor;
-    }
-    public void setDopColor(Color DopColor) {
-        this.DopColor = DopColor;
-    }
-    public Color getDopColor(){
-        return DopColor;
-    }
-    private void setRockets(Boolean Rockets){
-        this.Rockets = Rockets;
-    }
-    public Boolean getRockets(){
-        return Rockets;
-    }
-    private void setBoombs(Boolean Boombs){
-        this.Boombs = Boombs;
-    }
-    public Boolean getBoombs(){
-        return Boombs;
-    }
-
-    public void Init(int maxSpeed, float weight, Color mainColor, Color dopColor,
-                     Boolean rockets, Boolean boombs){
+    public Plane(int maxSpeed, float weight, Color mainColor){
         MaxSpeed = maxSpeed;
         Weight = weight;
         MainColor = mainColor;
-        DopColor = dopColor;
-        Rockets = rockets;
-        Boombs = boombs;
-        weapon = new RocketsBoombs();
-        weapon.Init(planeHeight);
-        Random rand = new Random();
-        weapon.setNumbWeapon(rand.nextInt(3));
     }
-
-    public void SetPosition(int x, int y, int width, int height){
-        startX = x;
-        startY = y;
-        pictureWidth = width;
-        pictureHeight = height;
+    protected Plane(int maxSpeed, float weight, Color mainColor, int skiffWidth, int skiffHeight){
+        MaxSpeed = maxSpeed;
+        Weight = weight;
+        MainColor = mainColor;
+        this.planeWidth = planeWidth;
+        this.planeHeight = planeHeight;
     }
-
+    @Override
     public void MoveTransport(Direction direction){
         float step = MaxSpeed * 100 / Weight;
         switch (direction){
@@ -104,7 +48,7 @@ public class Plane {
                 break;
         }
     }
-
+    @Override
     public void DrawTransport(Graphics g){
         g.clearRect(0, 0, 1000, 600);
         Graphics2D g2d=(Graphics2D)g;
@@ -128,9 +72,5 @@ public class Plane {
         g2d.drawLine(startX+70,startY+60,startX+70,startY+70);
         g2d.drawLine(startX+70,startY+70,startX+85,startY+80);
         g2d.drawLine(startX+85,startY+80,startX+85,startY+60);
-
-        if (Rockets && Boombs){
-            weapon.drawWeapon(DopColor, g2d, startX, startY);
-        }
     }
 }
